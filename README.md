@@ -8,6 +8,7 @@ https://github.com/stephencelis/SQLite.swift
 
 ```swift
 
+// Data model for QuestionSet
 class QuestionSet {
     
     var id: Int = 0
@@ -17,6 +18,7 @@ class QuestionSet {
 
 }
 
+// Question Set Accessor. Created using Factory.
 class QuestionSetAccessor {
     
     var db: Database? = nil
@@ -48,6 +50,7 @@ class QuestionSetAccessor {
         }
     }
     
+    // Read row from database and translate to data model.
     func fromQuestionSetRow(row: Row) -> QuestionSet {
         var result = QuestionSet()
         result.id = row.get(id)
@@ -55,6 +58,7 @@ class QuestionSetAccessor {
         return result
     }
 
+    // Return all question sets.
     func allQuestionSets() -> NSArray {
         
         var result = NSMutableArray()
@@ -68,6 +72,7 @@ class QuestionSetAccessor {
         return result
     }
     
+    // Save a question set.
     func save(questionSet: QuestionSet) {
         
         questionSet.updatedAt = NSDate()
@@ -89,6 +94,7 @@ class QuestionSetAccessor {
         }
     }
     
+    // Delete a question set.
     func delete(questionSet: QuestionSet) {
         let questionSets = db!["questionset"]
         let existing = questionSets.filter(id == questionSet.id)
